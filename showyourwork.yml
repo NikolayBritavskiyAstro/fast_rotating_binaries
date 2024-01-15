@@ -1,5 +1,5 @@
 # Enable rule caching on Zenodo?
-cache_on_zenodo: false
+cache_on_zenodo: true
 
 # Workflow graph (DAG) generation
 dag:
@@ -25,16 +25,16 @@ dag:
 
 # Externally-hosted datasets, e.g. on Zenodo
 datasets:
-  # 10.5281/zenodo.6468327:
-  #   contents:
-  #     TOI640b.json: src/data/TOI640b.json
+  10.5281/zenodo.10479753
+  # contents:
+  #   data.zip: src/data/
 
 # Custom file dependencies
 dependencies:
  #  src/scripts/plot_save_mesa_comparison_panels_fin.py:
  #  - src/scripts/mesaPlot/file_reader.py
  #  - src/scripts/mesaPlot/plot.py
- #  - src/scripts/mesaPlot/debug.py 
+ #  - src/scripts/mesaPlot/debug.py
  #   - src/scripts/matplotlibrc
   # src/tex/ms.tex:
   #   - src/tex/stylesheet.tex
@@ -48,7 +48,7 @@ optimize_caching: false
 # Overleaf sync settings
 overleaf:
   # Overleaf project ID (blank = disabled)
-  id: 
+  id:
   # Perform sync on GitHub Actions?
   gh_actions_sync: false
   # List of files to push to Overleaf
@@ -99,4 +99,4 @@ tectonic_args: []
 verbose: True
 
 # Version of `showyourwork` used to create this workflow
-version: 0.4.2
+version: 0.4.3
