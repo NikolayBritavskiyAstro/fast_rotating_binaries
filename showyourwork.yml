@@ -1,5 +1,5 @@
 # Enable rule caching on Zenodo?
-cache_on_zenodo: true
+cache_on_zenodo: false
 
 # Workflow graph (DAG) generation
 dag:
@@ -31,8 +31,11 @@ datasets:
 
 # Custom file dependencies
 dependencies:
-  # src/scripts/my_script.py:
-  #   - src/data/dataset_for_my_script.dat
+ #  src/scripts/plot_save_mesa_comparison_panels_fin.py:
+ #  - src/scripts/mesaPlot/file_reader.py
+ #  - src/scripts/mesaPlot/plot.py
+ #  - src/scripts/mesaPlot/debug.py 
+ #   - src/scripts/matplotlibrc
   # src/tex/ms.tex:
   #   - src/tex/stylesheet.tex
 
@@ -47,18 +50,18 @@ overleaf:
   # Overleaf project ID (blank = disabled)
   id: 
   # Perform sync on GitHub Actions?
-  gh_actions_sync: true
+  gh_actions_sync: false
   # List of files to push to Overleaf
   push:
-    - src/tex/figures
-    - src/tex/output
+   # - src/tex/figures
+   # - src/tex/output
   # List of files to pull from Overleaf
   pull:
-    - src/tex/ms.tex
-    - src/tex/bib.bib
+   # - src/tex/ms.tex
+   # - src/tex/bib.bib
 
 # Always require all input files to be present on disk for workflow to pass?
-require_inputs: true
+require_inputs: false
 
 # Allow cacheable rules to run on GitHub Actions?
 run_cache_rules_on_ci: false
@@ -70,7 +73,7 @@ scripts:
 # Display of the `showyourwork` stamp on first page
 stamp:
   # Show the stamp?
-  enabled: true
+  enabled: false
   # Stamp angle in degrees
   angle: -20.0
   # Stamp size in inches
@@ -87,13 +90,13 @@ stamp:
     maxlen: 40
 
 # Enable SyncTeX?
-synctex: True
+synctex: true
 
 # Command-line options to be passed to tectonic when building the manuscript
 tectonic_args: []
 
 # Enable verbose output?
-verbose: false
+verbose: True
 
 # Version of `showyourwork` used to create this workflow
 version: 0.4.2
