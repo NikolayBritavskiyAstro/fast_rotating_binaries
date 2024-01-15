@@ -16,3 +16,5 @@
 </p>
 
 An open source scientific article created using the [showyourwork](https://github.com/showyourwork/showyourwork) workflow.
+
+Use `conda 23.11.0` to build.
