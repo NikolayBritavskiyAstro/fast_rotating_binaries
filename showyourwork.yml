@@ -25,9 +25,9 @@ dag:
 
 # Externally-hosted datasets, e.g. on Zenodo
 datasets:
-  10.5281/zenodo.10479753
-  # contents:
-  #   data.zip: src/data/
+  10.5281/zenodo.10479754:
+    content:
+      - data.zip: src/data/
 
 # Custom file dependencies
 dependencies:
@@ -99,4 +99,4 @@ tectonic_args: []
 verbose: True
 
 # Version of `showyourwork` used to create this workflow
-version: 0.4.3
+version: 0.4.2

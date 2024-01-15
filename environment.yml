@@ -1,3 +1,4 @@
+channel_priority: strict
 channels:
   - defaults
   - bioconda
@@ -13,4 +14,4 @@ dependencies:
   - pip:
 
       - matplotlib==3.4.3
-      - showyourwork==0.4.3
+      - showyourwork==0.4.2
