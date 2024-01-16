@@ -31,13 +31,75 @@ datasets:
 
 # Custom file dependencies
 dependencies:
- #  src/scripts/plot_save_mesa_comparison_panels_fin.py:
- #  - src/scripts/mesaPlot/file_reader.py
- #  - src/scripts/mesaPlot/plot.py
- #  - src/scripts/mesaPlot/debug.py
- #   - src/scripts/matplotlibrc
-  # src/tex/ms.tex:
-  #   - src/tex/stylesheet.tex
+  src/scripts/plot_save_mesa_comparison_panels_fin.py:
+    - src/scripts/matplotlibrc
+    - src/scripts/mesaPlot/file_reader.py
+    - data/HD25631/
+    - data/HD46485/
+    - data/HD191495/
+
+  src/scripts/plot_save_mesa_comparison_wind_fin.py:
+    - src/scripts/matplotlibrc
+    - src/scripts/mesaPlot/file_reader.py
+    - data/one_star/
+
+  src/scripts/plot_save_mesa_comparison_panels_acc_fin.py:
+    - src/scripts/matplotlibrc
+    - src/scripts/mesaPlot/file_reader.py
+    - data/acceleration/
+
+  src/scripts/all_hr_fin.py:
+    - src/scripts/matplotlibrc
+    - src/scripts/mesaPlot/file_reader.py
+    - data/HR_HD25631/
+
+  src/scripts/hr_plot_paper2023_fin.py:
+    - src/scripts/matplotlibrc
+    - src/scripts/mesaPlot/file_reader.py
+    - data/sample_tracks/
+    - data/FINAL_TABLE_TO_PLOTS_mar2023.txt
+
+  src/scripts/plot_e_fin.py:
+    - src/scripts/matplotlibrc
+    - src/scripts/mesaPlot/file_reader.py
+    - data/eccentricity/
+
+  src/scripts/plot_min_a_in.py:
+    - src/scripts/matplotlibrc
+    - src/scripts/ML_stability.py
+    - src/scripts/Eggleton83.py
+    - src/scripts/get_sep_from_P_masses.py
+    - src/scripts/mlp_model_trip_ghost.pkl
+
+  src/scripts/plot_P_unstable.py:
+    - src/scripts/matplotlibrc
+    - data/triples/
+
+  src/scripts/plot_save_mesa_ce.py:
+    - src/scripts/matplotlibrc
+    - src/scripts/mesaPlot/file_reader.py
+    - data/CE/
+
+  src/scripts/plot_save_mesa_eta.py:
+    - src/scripts/matplotlibrc
+    - src/scripts/mesaPlot/file_reader.py
+    - data/mass_transfer_efficiency/
+
+  src/scripts/plot_save_mesa_pos_eta_res.py:
+    - src/scripts/matplotlibrc
+    - src/scripts/mesaPlot/file_reader.py
+    - data/mass_transfer_efficiency/
+
+  src/scripts/plot_save_mesa_individual_fin1p25.py:
+    - src/scripts/matplotlibrc
+    - src/scripts/mesaPlot/file_reader.py
+    - data/post_interaction/
+
+  src/scripts/plot_save_mesa_individual_pos_res.py:
+    - src/scripts/matplotlibrc
+    - src/scripts/mesaPlot/file_reader.py
+    - data/post_interaction/
+
 
 # Name of the `.tex` manuscript and corresponding `.pdf` article
 ms_name: ms
