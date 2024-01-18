@@ -7,6 +7,7 @@ from astropy.constants import G
 import paths
 from ML_stability import binary, get_ZAMS_periastron_RLOF_min_a, get_Rzams_from_mass_radius_rel
 import matplotlib as mpl
+plt.style.use(paths.scripts / "matplotlibrc")
 
 
 
