@@ -5,6 +5,13 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import paths
 plt.style.use(paths.scripts / "matplotlibrc")
+if os.path.exists(os.path.join(paths.data,'triples/')):
+	pass
+else:
+	os.system(f'python {os.path.join(paths.scripts / "unzip_MESA_output.py")}')
+
+
+
 
 def read_data(file_path, N_skip=None, convert = True):
     with open(file_path, 'r') as f:

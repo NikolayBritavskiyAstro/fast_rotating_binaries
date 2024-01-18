@@ -6,6 +6,14 @@ import os
 import mesaPlot as mp
 plt.style.use(paths.scripts / "matplotlibrc")
 
+if os.path.exists(os.path.join(paths.data,'eccentricity/HD191495/LOGS3/history.data')):
+	pass
+else:
+	os.system(f'python {os.path.join(paths.scripts / "unzip_MESA_output.py")}')
+
+
+
+
 m_200_191=mp.MESA()
 m2_200_191=mp.MESA()
 m3_200_191=mp.MESA()

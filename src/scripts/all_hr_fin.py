@@ -7,6 +7,15 @@ import os
 import mesaPlot as mp
 plt.style.use(paths.scripts / "matplotlibrc")
 
+if os.path.exists(os.path.join(paths.data,'HR_HD25631/LOGS1_0/history.data')):
+	pass
+else:
+	os.system(f'python {os.path.join(paths.scripts / "unzip_MESA_output.py")}')
+
+
+
+
+
 def find_nearest(array, value):
     array = np.asarray(array)
     idx = (np.abs(array - value)).argmin()

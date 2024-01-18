@@ -6,6 +6,12 @@ paths = Paths()
 import os
 import mesaPlot as mp
 
+if os.path.exists(os.path.join(paths.data,'post_interaction/30_20_1p25_g1_new/LOGS3/history.data')):
+	pass
+else:
+	os.system(f'python {os.path.join(paths.scripts / "unzip_MESA_output.py")}')
+
+
 plt.style.use(paths.scripts / "matplotlibrc")
 
 

@@ -6,6 +6,10 @@ paths = Paths()
 import os
 import mesaPlot as mp
 plt.style.use(paths.scripts / "matplotlibrc")
+if os.path.exists(os.path.join(paths.data,'CE/LOGS3_HD46485/history.data')):
+	pass
+else:
+	os.system(f'python {os.path.join(paths.scripts / "unzip_MESA_output.py")}')
 
 
 def find_nearest(array, value):

@@ -8,6 +8,11 @@ import mesaPlot as mp
 
 plt.style.use(paths.scripts / "matplotlibrc")
 
+if os.path.exists(os.path.join(paths.data,'mass_transfer_efficiency/p3_pos/LOGS3/history.data')):
+	pass
+else:
+	os.system(f'python {os.path.join(paths.scripts / "unzip_MESA_output.py")}')
+
 
 
 def find_nearest(array, value):

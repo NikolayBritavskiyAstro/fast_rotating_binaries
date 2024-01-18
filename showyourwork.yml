@@ -26,43 +26,45 @@ dag:
 # Externally-hosted datasets, e.g. on Zenodo
 datasets:
   10.5281/zenodo.10479754:
-    content:
-      - data.zip: src/data/
+    destination: src/data/
+    contents:
+      data.zip:
 
 # Custom file dependencies
 dependencies:
+  src/scripts/unzip_MESA_output.py:
+    - src/data/data.zip
+
   src/scripts/plot_save_mesa_comparison_panels_fin.py:
     - src/scripts/matplotlibrc
     - src/scripts/mesaPlot/file_reader.py
-    - data/HD25631/
-    - data/HD46485/
-    - data/HD191495/
+    - src/data/data.zip
 
   src/scripts/plot_save_mesa_comparison_wind_fin.py:
     - src/scripts/matplotlibrc
     - src/scripts/mesaPlot/file_reader.py
-    - data/one_star/
+    - src/data/data.zip
 
   src/scripts/plot_save_mesa_comparison_panels_acc_fin.py:
     - src/scripts/matplotlibrc
     - src/scripts/mesaPlot/file_reader.py
-    - data/acceleration/
+    - src/data/data.zip
 
   src/scripts/all_hr_fin.py:
     - src/scripts/matplotlibrc
     - src/scripts/mesaPlot/file_reader.py
-    - data/HR_HD25631/
+    - src/data/data.zip
 
   src/scripts/hr_plot_paper2023_fin.py:
     - src/scripts/matplotlibrc
     - src/scripts/mesaPlot/file_reader.py
-    - data/sample_tracks/
-    - data/FINAL_TABLE_TO_PLOTS_mar2023.txt
+    - src/scripts/unzip_MESA_output.py
+    - src/data/FINAL_TABLE_TO_PLOTS_mar2023.txt
 
   src/scripts/plot_e_fin.py:
     - src/scripts/matplotlibrc
     - src/scripts/mesaPlot/file_reader.py
-    - data/eccentricity/
+    - src/data/data.zip
 
   src/scripts/plot_min_a_in.py:
     - src/scripts/matplotlibrc
@@ -70,36 +72,30 @@ dependencies:
     - src/scripts/Eggleton83.py
     - src/scripts/get_sep_from_P_masses.py
     - src/scripts/mlp_model_trip_ghost.pkl
-
+    - src/data/data.zip
   src/scripts/plot_P_unstable.py:
     - src/scripts/matplotlibrc
-    - data/triples/
-
+    - src/data/data.zip
   src/scripts/plot_save_mesa_ce.py:
     - src/scripts/matplotlibrc
     - src/scripts/mesaPlot/file_reader.py
-    - data/CE/
-
+    - src/data/data.zip
   src/scripts/plot_save_mesa_eta.py:
     - src/scripts/matplotlibrc
     - src/scripts/mesaPlot/file_reader.py
-    - data/mass_transfer_efficiency/
-
+    - src/data/data.zip
   src/scripts/plot_save_mesa_pos_eta_res.py:
     - src/scripts/matplotlibrc
     - src/scripts/mesaPlot/file_reader.py
-    - data/mass_transfer_efficiency/
-
+    - src/data/data.zip
   src/scripts/plot_save_mesa_individual_fin1p25.py:
     - src/scripts/matplotlibrc
     - src/scripts/mesaPlot/file_reader.py
-    - data/post_interaction/
-
+    - src/data/data.zip
   src/scripts/plot_save_mesa_individual_pos_res.py:
     - src/scripts/matplotlibrc
     - src/scripts/mesaPlot/file_reader.py
-    - data/post_interaction/
-
+    - src/data/data.zip
 
 # Name of the `.tex` manuscript and corresponding `.pdf` article
 ms_name: ms
@@ -126,7 +122,7 @@ overleaf:
 require_inputs: false
 
 # Allow cacheable rules to run on GitHub Actions?
-run_cache_rules_on_ci: false
+run_cache_rules_on_ci: True
 
 # Mapping of script file extensions to instructions for executing them
 scripts:
