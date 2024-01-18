@@ -37,15 +37,17 @@
 \newcommand{\mr}[1]{\textcolor{green!50!black}{#1}}
 \newcommand{\nb}[1]{\textcolor{blue}{#1}}
 \usepackage{showyourwork}
+\usepackage{hyperref}
 
-
+%Added by TeX Support
+%\newcommand{\orcidlink}[1]{\protect\href{https://orcid.org/#1}{\protect\includegraphics[width=8pt]{orcid.png}}}
 
 \begin{document}
 
 \graphicspath{{./figures/}}
 
 
-\title{Tracing the evolution of short-period binaries with super-synchronous fast-rotators}
+\title{Tracing the evolution of short-period binaries with super-synchronous fast rotators}
 
 
 \author{N. Britavskiy\inst{1,2}\orcidlink{0000-0003-3996-0175},
@@ -62,7 +64,7 @@
 }
 \offprints{mbritavskiy@uliege.be}
 
-\date{Submitted/Accepted}
+\date{Submitted 06 November 2023 / Accepted 13 January 2024}
 
 
 \titlerunning{Fast-rotating massive stars in a short-period binaries}
@@ -81,44 +83,44 @@
 % {} leave it empty if necessary
 {The initial distribution of rotational velocities of stars is still
   poorly known, and how the stellar spin evolves from birth to the
-  various end-points of stellar evolution is an actively debated
+  various end points of stellar evolution is an actively debated
   topic. Binary interactions are often invoked to explain the
   existence of extremely fast-rotating stars (\vsini~
   $\gtrsim 200$\,\kms). The primary mechanisms through which binaries
-  can spin up stars are tidal interactions, mass-transfer, and
+  can spin up stars are tidal interactions, mass transfer, and
   possibly mergers. However, fast rotation could also be primordial,
-  that is a result of the star formation process. 
-  To evaluate these scenarios, we investigate in detail the
+  that is, a result of the star formation process.
+  To evaluate these scenarios, we investigated in detail the
   evolution of three known fast-rotating stars in short-period spectroscopic and eclipsing
   binaries, namely HD\,25631, HD\,191495, and HD\,46485, with
-  primaries of masses of 7, 15, and 24 $M_{\odot}$ respectively, with
+  primaries of masses of 7, 15, and 24 $M_{\odot}$, respectively, with
   companions of $\sim1\,M_\odot$ and orbital periods of less than 7 days. These systems belong to a
   recently identified class of binaries with extreme mass ratios, whose evolutionary origin is still poorly understood.}
 % aims heading (mandatory)
-{We evaluate in detail three scenarios that could explain the fast
+{We evaluated in detail three scenarios that could explain the fast
     rotation observed in these binaries: it could be primordial, a
     product of mass transfer, or the result of a merger within an
     originally triple system. We also discuss the future evolution of
     these systems to shed light on the impact of fast rotation on
     binary products.}
 % methods heading (mandatory)
-  {We compute grids of single and binary MESA models varying tidal
+  {We computed grids of single and binary MESA models varying tidal
       forces and initial binary architectures to investigate the
       evolution and reproduce observational properties of these
-      systems. When considering the triple scenario, we determine the
+      systems. When considering the triple scenario, we determined the
       region of parameter space compatible with the observed binaries
-      and use a publicly available machine-learning model to determine
+      and used a publicly available machine-learning model to determine
       the dynamical stability of the triple system.}
   % results heading (mandatory)
 {We find that, because of the extreme mass-ratio between binary components,
-     tides have a limited impact, whatever the prescription used, and that
+     tides have a limited impact, regardless of the prescription used, and that
     the observed short orbital periods are at odds with post-mass-transfer
     scenarios.
-   We also find that the overwhelming majority of triple systems compatible with the observed binaries are dynamically unstable and would disrupt within years of formation, forcing a hypothetical merger to happen so close to a zero-age main-sequence that it can be considered part of the star formation process.}
+   We also find that the overwhelming majority of triple systems compatible with the observed binaries are dynamically unstable and would be disrupted within years of formation, forcing a hypothetical merger to happen so close to a zero-age main-sequence that it could be considered part of the star formation process.}
 % conclusions heading (mandatory)
  {The most likely scenario to form such young, rapidly rotating,
     and short-period binaries is primordial rotation, implying that the
-    observed binaries are pre-interaction. Our simulations further indicate
+    observed binaries are pre-interaction ones. Our simulations further indicate
   that such systems will subsequently go through a common envelope and
   likely merge. These binaries show that the initial spin distribution of massive
   stars can have a wide range of rotational velocities.}
@@ -132,35 +134,33 @@
 \section{Introduction}
 
 
-Stellar rotation is a ubiquitous though as-yet poorly understood
+Stellar rotation is a ubiquitous though as of yet poorly understood
 phenomenon, especially for massive stars \cite[e.g.,][]{Langer_2012}.
-Rotation is crucial for nucleosynthesis of certain elements
-\citep[e.g., ``s-process''][]{limongi:18}, for powering transients
+Rotation is crucial for the nucleosynthesis of certain elements
+\citep[e.g., ``s process''][]{limongi:18}, for powering transients
 such as long gamma-ray bursts in the ``collapsar'' scenario
 \citep[e.g.,][]{macfadyen:99}, and to understand the spins of neutron
 stars and black holes \citep[e.g.,][]{callister:21, GWTC3}.
 Understanding the rotational evolution of stellar surfaces and
 interiors is thus important for galactic evolution, time domain astrophysics, and
 gravitational-wave observations. Before investigating the origin of stellar
-rotation, let us focus on how the rotation is
+rotation, we shall focus on how the rotation is
 studied and what affects it.
 
-\subsection{Observational constraints on stellar rotation}
-
-For O- and B-type stars, spectroscopic observations typically provide only the \emph{projected}
-  equatorial rotational velocity \vsini, that is the equatorial rotational
+\paragraph{Observational constraints on stellar rotation.}
+For O- and B-type stars, spectroscopic observations typically provide only the projected
+  equatorial rotational velocity \vsini, that is, the equatorial rotational
   velocity $v$ times the sine of the inclination angle to the line of
   sight $i$, which is usually unknown.
-
-Usually, \vsini~ is measured through the Doppler broadening of spectral
+Typically, \vsini~ is measured through the Doppler broadening of spectral
 lines, where the rotational component needs to be carefully separated
-from other line-profile broadening components (e.g., macroturbulence, \citealt{Simon-Diaz2014}).
+from other line-profile broadening components (e.g., macroturbulence; \citealt{Simon-Diaz2014}).
 
 While investigating various stellar populations, common features in
 the distribution of \vsini~ are found for O-type stars
 \citep{Conti_1977, vfts_2013_otype, vfts_2015_otype}, B-type
-stars \citep{Wolff_1982, Dufton_2013} and A-type stars \citep{Abt_1973}.
-Indeed, the distribution of \vsini~ seems to peak near 100~\kms~ with
+stars \citep{Wolff_1982, Dufton_2013}, and A-type stars \citep{Abt_1973}.
+The distribution of \vsini~ does indeed seem to peak near 100~\kms~ with
 a tail of so-called fast-rotating stars with \vsini\,$>$\,200~\kms.
 
 Recent studies describing large surveys (including stellar
@@ -169,13 +169,13 @@ morphology of the \vsini~distribution of early-type massive stars
 \citep[e.g.,][]{Dufton_2013,vfts_2013_otype,Holgado_2022}. Notably,
 the spin distribution appears independent of the environment
 \citep[e.g., Galactic field vs. young stellar
-clusters,][]{Wolff_2007,Penny_2009, Huang_2010}. However, field stars
-are on average older than stars in young open clusters, and since
-rotation slows down as the star evolves because of stellar winds and the evolutionary expansion of the envelope, stars in young open cluster appear to rotate
+clusters;][]{Wolff_2007,Penny_2009, Huang_2010}. However, field stars
+are older than stars in young open clusters, on average, and since
+rotation slows down as the star evolves because of stellar winds and the evolutionary expansion of the envelope, stars in a young open cluster appear to rotate
 systematically faster than stars in the field.
 Interestingly, in more metal-poor environments, there is a trend
-towards increasing mean rotational velocity in OB stars while keeping
-the same overall non-uniform distribution \citep{Ramachandran_2019}. This is caused by the
+toward increasing mean rotational velocity in OB stars while keeping
+the same overall nonuniform distribution \citep{Ramachandran_2019}. This is caused by the
   weakening of stellar winds at low metallicity
 \citep[e.g.,][]{Vink_2001,mokiem:07}: the initial angular momentum of
 the star is preserved longer. These results tentatively imply that the
@@ -183,104 +183,96 @@ observed \vsini~ distribution exists in environments of differing metallicity
 and age.
 
 
-
 The shape of the surface rotational distribution of massive
-  stars is determined by various poorly understood processes, such as the unknown pre-main sequence (pre-MS)
+  stars is determined by various poorly understood processes, such as the unknown pre-main-sequence (pre-MS)
   initial distribution and the influence of various physical processes
   active as the stars evolve and possibly interact with commonly
   occurring \citep[e.g.,][]{Sana_2012, moe_2017, Offner_2022} stellar
   companions \citep[e.g.,][]{packet:81, deMink_2013, vfts_2015_otype}.
-This non-uniform (also referred as bimodal) rotational distribution is causing the main-sequence split which is observed on the color magnitude diagrams of the young star clusters \citep[see, e.g.][]{Kamann_2023,Wang_2023}.
+This nonuniform (also referred as bimodal) rotational distribution is causing the MS split which is observed on the color magnitude diagrams of the young star clusters \citep[see, for example,][]{Kamann_2023,Wang_2023}.
 
 
-\subsection{What affects the stellar rotation?}
-
-The main factors that can affect the stellar rotation are: (\emph{i}) the
+\paragraph{What affects the stellar rotation?}
+The main factors that can affect stellar rotation are as follows: (\emph{i}) the
 angular momentum budget left behind by star formation processes;
 (\emph{ii}) the acting stellar physics processes throughout the
-  evolution elapsed, e.g., magnetic braking, mass loss, changes in internal structure;
+  evolution elapsed, for example, magnetic braking, mass loss, changes in internal structure; and
 (\emph{iii}) binary interactions, including stellar mergers.
 
 The initial spin of a star is the direct product of star formation
-processes which happen embedded in opaque clouds. Different physical
-aspects have been suggested to play a major role, such as magnetic
-field or the presence of a circumstellar disc through the pre-MS stage
+processes, that happen embedded in opaque clouds. Different physical
+aspects have been suggested to play a major role, such as the magnetic
+field or the presence of a circumstellar disk through the pre-MS stage
 \citep[e.g.,][]{Rosen_2012}. In fact, these two factors are
-proposed to be dominant in producing the non-uniform distribution
+proposed to be dominant in producing the nonuniform distribution
 of rotation among the pre-MS low- and intermediate-mass stars
 \citep{Bastian_2020}. This initial rotation distribution has not been
-studied in the pre-MS massive star domain, but based on the similarity of observed \vsini~ distribution across spectral types, we can expect that a similar
+studied in the pre-MS massive star domain; however, based on the similarity of the observed \vsini~ distribution across spectral types, we can expect that a similar
  non-uniform initial distribution could also be present there.
 
-After formation, the spin evolution depends on highly debated plasma physics (e.g., shears, magnetic
-instabilities, see e.g., \citealt{Tayler_1973, spruit:99, spruit:02,Maeder_2000, fuller:19, denhartogh:20,ji:23}), uncertain wind mass
+After formation, the spin evolution depends on highly debated plasma physics (e.g., shears and magnetic
+instabilities; see e.g., \citealt{Tayler_1973, spruit:99, spruit:02,Maeder_2000, fuller:19, denhartogh:20,ji:23}), uncertain wind mass
 and angular momentum loss rates \citep[e.g.,][]{smith:14, renzo:17},
 and the evolution of the stellar moment of inertia \citep[e.g.,][]{langer:98,zhao:20}.
 Each of these evolutionary processes can modify the shape of the observed distribution of surface rotation \citep{Maeder_2000}.
 
 Uncertainties affecting these stellar processes limit our
 understanding of the angular momentum budget of a star in late evolutionary phases.
-At core-collapse, hydrodynamical instabilities can redistribute this angular momentum between the newly formed compact object and the ejecta \citep[e.g.,][]{Kazeroni_2017}, complicating further the
+At core-collapse, hydrodynamical instabilities can redistribute this angular momentum between the newly formed compact object and the ejecta \citep[e.g.,][]{Kazeroni_2017}, further complicating the
 connection between observed compact object spins and their parent stars' rotation.
 
 
-
 In addition, the vast majority of massive stars exist in multiple systems \citep[e.g.,][]{Mason_2009, Duchene_2013, Sana_2013, Kobulnicky_2014, Dunstall_2015, Almeida_2017, Offner_2022}.
-In such systems, interactions among stars are expected to occur in 70 \% of cases during the main-sequence (MS) stage evolutionary stage \citep{Sana_2012}.
+In such systems, interactions among stars are expected to occur in 70 \% of cases during the MS stage evolutionary stage \citep{Sana_2012}.
 Such binary interactions may also play a dominant role in shaping the observed
-distribution of surface rotation rate, especially for the tail of fast rotators because of tides, mass transfer, or mergers. This idea has been proposed
-  multiple times both from a theoretical perspective
+distribution of the surface rotation rate, especially for the tail of fast rotators because of tides, mass transfer, or mergers. This idea has been proposed
+  multiple times, both from a theoretical perspective
   \citep{packet:81, Pols_1994, deMink_2013, vinciguerra:20} and observational studies \citep{blaauw:93,  vfts_2015_otype, Cazorla2017b, Britavskiy_2023}.
-One example is the famous category of Be stars, which are fast rotating stars with decretion disks \citep{Fremat_2005, Rivinius_2013}.
-They are not known to be paired with main-sequence companions \citep{Bodensteiner_2020}, but instead, many of them are orbited by a stripped star \citep{Wang_2018,Wang_2021} or a compact companion \citep[e.g.,][]{Reig_2011,Dodd_2023}.
+One example is the famous category of Be stars, which are fast-rotating stars with decretion disks \citep{Fremat_2005, Rivinius_2013}.
+They are not known to be paired with MS companions \citep{Bodensteiner_2020}, but instead, many of them are orbited by a stripped star \citep{Wang_2018,Wang_2021} or a compact companion \citep[e.g.,][]{Reig_2011,Dodd_2023}.
 
 
-However, even if binarity causes the fast-rotating tail of the distribution, this still leaves the bulk of the distribution unexplained. For example, \citet{vfts_2015_otype} suggested that
+However, even if binarity causes the fast-rotating tail of the distribution, this still leaves the nonnegligible part of the distribution unexplained. For example, \citet{vfts_2015_otype} suggest that
 the initial rotation distribution of massive stars is the same for
 apparently single and single-lined spectroscopic binary (SB1) stars.
 This gives us a hint that some of the rapid rotators can be effectively single or still be in the pre-interacting binary regime.
 Conversely, some of the young spectroscopic binaries are still in the pre-interacting stage and the rotation of its components has not yet been affected by binary interaction. A few examples have been proposed in the past \citep{Johnston2021,Stassun_2021, Naze_2023_rot}.
-To distinguish what exactly causes the fast rotation, we need to investigate in detail different binary configurations and their evolution from the rotation point of view.
+To distinguish what exactly causes the fast rotation, we need to investigate different binary configurations and their evolution from the rotation point of view 
+in detail.
 
 
 To summarize, stellar rotation could indirectly indicate whether a binary interaction has happened in a given system at some point in its evolution.
-To consider rotation as a tracer of binary interaction, it is however important to understand which factors affect it.
+To consider rotation as a tracer of a binary interaction, it is however important to understand which factors affect it.
+Answering these questions will help us to understand the overall evolution of stellar spin, from stellar birth to the latest various end points of stellar evolution.
 
-Answering these questions will help us to understand the overall evolution of stellar spin, from stellar birth to the latest various endpoints of stellar evolution.
-
-\subsection{Main motivation of the present work}
-
-Here, we study
-  known Galactic fast-rotating OB stars that have been identified
+\paragraph{Main motivation of the present work.}
+Here, we study known Galactic fast-rotating OB stars that have been identified
   in single-lined spectroscopic binaries, specifically HD\,25631,
   HD\,191495, and HD\,46485
-  \citep[SB1,][see also \Tabref{table:sb1_fast}]{Britavskiy_2023,Naze_2023_rot}. Taking into account
+  \citep[SB1;][see also \Tabref{table:sb1_fast}]{Britavskiy_2023,Naze_2023_rot}. Taking into account
   their high surface rotational velocities (\vsini\,$>$\,200~\kms), short orbital periods ($P$ $<$ 7 days), and very unequal
-  mass-ratios, we aim at understanding what causes such a high rotation, and what is the effect (if any)
-of past and future binary interactions. Indeed, their observed \vsini~ is significantly larger than the tidal synchronization velocities.
+  mass ratios, we aim to understand what causes such a high rotation, and to determine what the effect is (if any)
+of past and future binary interactions. Their observed \vsini~ is indeed significantly larger than the tidal synchronization velocities.
 These systems are not exceptional: similar short-period
 binaries with an extreme mass ratio are known \citep[][]{Moe_2015,Jerzykiewicz_2021}. Thus, by evaluating different processes that
-could result in a high rotation for the investigated targets we can
-emphasize what is the more probable scenario to form the whole class of such binaries.
-The main goal of the current work is to evaluate different evolutionary scenarios that could result in these peculiar binary configurations and predict how they will further evolve.
+could result in a high rotation for the investigated targets, we can
+emphasize what  the more probable scenario is to form the whole class of such binaries.
+The main goal of the current work is to evaluate different evolutionary scenarios that could result in these peculiar binary configurations and to predict how they will further evolve.
 
 
 Numerical calculations of the internal evolution of both stars in an
 interacting binary accounting for the exchange of mass and angular
 momentum \citep[e.g.,][]{wang:20, Badry_2021,Renzo_2021, pauli:22,
-  renzo:23} allow us to investigate the detailed evolution of
-rotational velocities in such systems.
+  renzo:23} allowed us to investigate the detailed evolution of
+rotational velocities in such systems. We followed the evolution of these targets up to late stages, in order to understand whether they will be the sources of stripped stars, stellar mergers, and/or X-ray binaries.
 
-We follow the evolution of these targets up to late stages, in order
-to understand whether they will be the sources of stripped stars, stellar mergers and/or X-ray binaries. 
-
-The paper is organized as follows. In \Secref{sec:sample}, we introduce the sample of fast rotators and the methodology we are following; from \Secref{sec:pre-interaction} to \Secref{sec:triple_scenario} we are evaluating three different scenarios of binary interaction that could occur in a given system.
+The paper is organized as follows. In \Secref{sec:sample}, we introduce the sample of fast rotators and the methodology we followed; from \Secref{sec:pre-interaction} to \Secref{sec:triple_scenario}, we evaluate three different scenarios of binary interaction that could occur in a given system.
 The primordial rotation scenario (pre-interacting regime) is presented
 in \Secref{sec:pre-interaction}. We evaluate how long a high
-rotational velocity can remain assuming that these systems were formed
-with initial rotation close to the current \vsini. In addition, we highlight what is the effect of tides on the rotation and which further binary interaction will affect such systems.
-In \Secref{sec:post-interaction} we evaluate if the present orbital configuration of the three systems could form through binary interaction. We assume that the accretor has gained its high rotational velocity via stable mass transfer from the donor.
-In \Secref{sec:triple_scenario} we present our discussion regarding merger in a triple system. A merging process could result in a fast rotating star, however, dynamic stability parameters that are able to reach the observed binary configurations need to be investigated. 
+rotational velocity can remain, assuming that these systems were formed
+with an initial rotation close to the current \vsini. In addition, we highlight what the effect of tides is on the rotation and which further binary interaction will affect such systems.
+In \Secref{sec:post-interaction} we evaluate if the present orbital configuration of the three systems could form through a binary interaction. We assume that the accretor has gained its high rotational velocity via stable mass transfer from the donor.
+In \Secref{sec:triple_scenario} we present our discussion regarding a merger in a triple system. A merging process could result in a fast-rotating star; however, dynamic stability parameters that are able to reach the observed binary configurations need to be investigated.
 \Secref{sec:discussions} presents a general discussion, while \Secref{sec:conclusions} recalls the main conclusions of this paper.
 
 
@@ -289,9 +281,7 @@ In \Secref{sec:triple_scenario} we present our discussion regarding merger in a 
 \section{Sample of stars and the adopted methodology}
 \label{sec:sample}
 
-
-
-Recently, three peculiar short-period binaries with a fast-rotator
+Recently, three peculiar short-period binaries with a fast rotator
 (\vsini\,$>$\,200~\kms) as primary component \citep{Naze_2023_rot}
 were detected and analyzed in detail. These three targets (HD\,25631,
 HD\,191495 and HD\,46485) have common morphology of light-, and
@@ -307,7 +297,7 @@ mass ratios ($q=M_2/M_1=M_\mathrm{unseen}/M_\mathrm{seen}$ from 0.035 to 0.15).
 The position of primaries of the selected systems on the Hertzsprung--Russell (HR)
 diagram is presented in \Figref{fig:hr_plot_paper2023} together
 with a sample of 50 Galactic fast-rotating O stars from \citet{Britavskiy_2023} for reference.
-In addition, we calculated the evolutionary tracks that represent the main-sequence evolutionary stage of a non-rotating single star at solar metallicity (Z = 0.02).
+In addition, we calculated the evolutionary tracks that represent the main-sequence evolutionary stage of a nonrotating single star at solar metallicity (Z = 0.02).
 For each track, the zero-age main-sequence (ZAMS) was defined at the moment when total nuclear luminosity from all burning becomes equal to the surface luminosity within the absolute difference of $10^{-4}$.
 The end of MS is defined as the central mass fraction of hydrogen decreasing below $X(^{1}\mathrm{H})<0.01$.
 
@@ -321,7 +311,7 @@ HD\,46485 in NGC 2244 and HD\,191495 in NGC 6871 \citep[see for details][]{Naze_
 
 The existence of these systems raises questions regarding
 their origin and evolutionary paths, which can shed light on the initial
-\vsini~distribution of OB stars. The first question to address is: what is the origin of the super-synchronous rotation of the primaries in these systems?
+\vsini~distribution of OB stars. However, first, we need to understand what is the origin of the super-synchronous rotation of the primaries in these systems.
 
 
 \begin{table}[!htbp]
@@ -360,7 +350,7 @@ Notes. $^{\ast}$ - the uncertainty in T$_{eff}$ taken as average uncertainty of 
   \centering
   \script{hr_plot_paper2023_fin.py}
   \includegraphics[width=0.50\textwidth]{HR_REAL_ROT_Paper2023.pdf}
-  \caption{Location in the HR diagram of the Galactic OB fast rotators studied in \citet{Britavskiy_2023} and \citet{Naze_2023_rot}. Apparently single, binary and runaway fast-rotators are marked by specific symbols. Non-rotating evolutionary tracks represent the main-sequence stage of a single-star evolution at solar metallicity for different initial masses.}
+  \caption{Location in the HR diagram of the Galactic OB fast rotators studied in \citet{Britavskiy_2023} and \citet{Naze_2023_rot}. Apparently single, binary, and runaway fast rotators are marked by specific symbols. Nonrotating evolutionary tracks represent the main-sequence stage of a single-star evolution at solar metallicity for different initial masses.}
   \label{fig:hr_plot_paper2023}
 \end{figure}
 
@@ -386,18 +376,18 @@ numerical assumptions. Following the "best practice" tips of working with MESA, 
 In this section, we assume that the primaries of HD\,25631, HD\,191495, and HD\,46485 were
 born with a high rotation and we describe their subsequent
 evolution.
-Our main question is how long such a fast initial rotation can remain - i.e. could such initial rotation be detected in practice -  and what is the effect of tides in such short-period systems?
+Our main question is how long such a fast initial rotation can remain - that is, could such initial rotation be detected in practice -  and what is the effect of tides in such short-period systems?
 
 
 \subsection{Method}
 
 As we are investigating the surface rotational properties of massive stars, it is very important to take into account the main factors that affect it. In the case of single stars, we need to consider assumptions regarding the
-mass loss through stellar winds, core overshooting, and expansion of the envelope while the star is evolving. For the consideration of mass loss, we use the \texttt{'Dutch'}
+mass loss through stellar winds, core overshooting, and expansion of the envelope while the star is evolving. For the consideration of mass loss, we use the \texttt{"Dutch"}
 wind scheme that combines \citet{Vink_2001} mass loss prescription,
 suitable for effective temperatures $\geq$ 11 000 K and mass fraction
 of hydrogen $X(^{1}\mathrm{H})$ $>$ 0.4, with \citet{Jager_1988}
 mass loss rates for temperatures lower than 10 000 K. In between the
-mentioned temperatures, the \texttt{'Dutch'} scheme is linearly
+mentioned temperatures, the \texttt{"Dutch"} scheme is linearly
 interpolating hot and cold wind prescriptions.
 To test robustness of our conclusions against uncertainties in wind mass loss rates \citep{renzo:17}, we also compute models with the "flat" wind mass loss rate from \citet{Bjorklund_2023}.
  Regarding extended convective mixing, we use the exponential core overshooting based on
@@ -448,7 +438,7 @@ This rotation braking  occurs mostly for O-type stars at late stages of the MS. 
   \includegraphics[width=0.50\textwidth]{age_vsurf_comparison_onestar.pdf}
   \caption{Evolution of equatorial surface rotational velocity of a
     single 24 $M_{\odot}$ star for different values of initial
-    rotational velocity by assuming the formalism of \citet{Vink_2001} stellar wind model (solid lines) and \citet{Bjorklund_2023} wind model (dashed lines). In addition, tracks without the Spruit - Tayler dynamo mechanism (dotted-dashed lines) and the tracks assumed \citet{fuller:19} AM transport (dotted lines) are added for reference.
+    rotational velocity by assuming the formalism of the \citet{Vink_2001} stellar wind model (solid lines) and the \citet{Bjorklund_2023} wind model (dashed lines). In addition, tracks without the Spruit - Tayler dynamo mechanism (dotted-dashed lines) and the tracks assumed \citet{fuller:19} AM transport (dotted lines) are added for reference.
  The tracks represent only the main-sequence
     stage up to terminal-age evolutionary phase. The error bars
     represent the observed position of HD\,46485, whose primary has comparable mass.}
@@ -531,7 +521,6 @@ implemented in the POSYDON code \citep[blue dashed lines, based on][]{Qin_2018, 
       each panel are used due to the different rotation rates, stellar
       masses, and thus lifetimes of the systems.}
   \label{fig:v_surf}
-  
 \end{figure}
 
 
@@ -539,7 +528,7 @@ implemented in the POSYDON code \citep[blue dashed lines, based on][]{Qin_2018, 
   \centering
   \script{plot_save_mesa_comparison_panels_acc_fin.py}
   \includegraphics[width=0.50\textwidth]{age_vsurf_acceleration_panel.pdf}
-  \caption{The same as \Figref{fig:v_surf} but assuming the $v_\mathrm{rot}^\mathrm{1,ini}$ = 1 \kms. The gray dashed lines represent the evolution of synchronization rotational velocity for each system.}
+  \caption{Same as \Figref{fig:v_surf} but assuming $v_\mathrm{rot}^\mathrm{1,ini}$ = 1 \kms. The gray dashed lines represent the evolution of synchronization rotational velocity for each system.}
   \label{fig:v_surf_acceleration}
 \end{figure}
 
@@ -564,7 +553,7 @@ regime can exist and how the tides are affecting it (although see
 below for a numerical experiment varying the initial rotational
 velocity, cf.~\Figref{fig:v_surf_hr}). As we can see
 from \Figref{fig:v_surf}, the tides significantly affect the systems
-with a less extreme mass ratio (i.e. HD\,25631 and HD\,191495
+with a less extreme mass ratio (i.e., HD\,25631 and HD\,191495
 shown in the bottom and middle panels of \Figref{fig:v_surf}).
 As expected, the tides are mainly spinning down these stars and widening the orbit.
 Since all of the investigated systems have super-synchronous rotation and short-periods, the tidal interaction can not be a reason of the
@@ -583,7 +572,8 @@ while with tides the star is spinning up to synchronization velocity
 $R_{\odot}$ ($v_\mathrm{sync}$ for this radius and the
 given period is $\sim$ 200 \kms).
 
-Note, that in some cases (HD\,25631 and HD\,191495) close to the TAMS, we have a non-negligible difference in resulting $v_\mathrm{rot}$ between "MESA default" (\texttt{sync\_type = "Hut\_rad"}) and POSYDON tides prescriptions.
+
+It is important to note that in some cases (HD\,25631 and HD\,191495) close to the TAMS, we have a non-negligible difference in resulting $v_\mathrm{rot}$ between "MESA default" (\texttt{sync\_type = "Hut\_rad"}) and POSYDON tides prescriptions.
 That is caused by the different treatment of the dynamical tides in the radiative envelope which are assumed in these prescriptions.
 In the POSYDON tides formalism (\texttt{sync\_type = "structure\_dependent"}), the synchronization timescale of dynamical tides is more sensitive to the structure of the star via tidal coupling parameter \citep[often called $E_{2}$, see Section 3 in][]{Qin_2018} which depends on the radius of the convective core, while in \citet{Hut_1980,Hurley_2002} formalism these types of tides just depend on the entire mass of the star (see \Appref{sec:e2_def} for details).
 However, the main difference of the POSYDON prescription is that it takes the shortest of the calculated dynamical and equilibrium synchronization timescales, with the latter expected to become important for giant stars or even massive stars with significant convective layers during their MS.
@@ -654,7 +644,6 @@ However, we assumed such a scenario (red dashed line in \Figref{fig:v_surf_hr}, 
   \includegraphics[width=0.33\textwidth]{r_alpha_HD25631.pdf}
   \includegraphics[width=0.33\textwidth]{r_alpha_HD191495.pdf}
   \includegraphics[width=0.33\textwidth]{r_alpha_HD46485.pdf}
-
   \caption{Efficiency of the CE process $\alpha_{CE}$, with a
     different fraction of thermal energy $\alpha_{th}$ for our three
     targets (see text for details). In order to define the zone of the
@@ -668,7 +657,7 @@ However, we assumed such a scenario (red dashed line in \Figref{fig:v_surf_hr}, 
 Our simulations lead us to the conclusion that the spin-down timescale is comparable to the entire main-sequence lifetime of each star.
 For example, for 7 $M_{\odot}$ and 15 $M_{\odot}$ primaries (HD\,25631 and HD\,191495, respectively), the $v_\mathrm{rot}$ only drops by 4 $\%$ and 6 $\%$ from the initial value at the half of the main-sequence duration.
 In the case of the more massive (24 $M_{\odot}$) star HD\,46485, the
-drop in $v_\mathrm{rot}$ is happening quicker (by 22 $\%$ at half of main-sequence duration, assuming \texttt{'Dutch'} mass loss regime) because of the
+drop in $v_\mathrm{rot}$ is happening quicker (by 22 $\%$ at half of main-sequence duration, assuming \texttt{"Dutch"} mass loss regime) because of the
 stronger mass loss rate for stars of larger initial mass.
 In addition to this, we show that tidal synchronization can spin up the star only at the end of the main-sequence when the size of the star is significantly larger than at ZAMS.
 In view of the young age of all studied systems \citep[$<$ 10 Myrs,
@@ -692,8 +681,8 @@ We evolved the models presented in \Secref{sec:res_primordial}
 the common envelope (CE) scenario when investigating the future of our
 systems \citep{paczynski:1976,claeys:14,renzo:21gwce}.
 
-Indeed, the largest mass-ratio $q\lesssim0.15$ (see \Tabref{table:sb1_fast})
-  is much smaller than typical minimum threshold for stability \citep[e.g.,
+The largest mass ratio $q\lesssim0.15$ (see \Tabref{table:sb1_fast})
+  is indeed much smaller than the  typical minimum threshold for stability \citep[e.g.,
   $q\geq q_\mathrm{crit}\simeq0.25-0.625$ for main-sequence
   interactions,][]{claeys:14}. Thus, we assume that the mass-transfer
   event will become dynamically unstable and result in a common
@@ -719,7 +708,7 @@ Formally, conservation of energy requires
   sources other than the orbit in the common-envelope ejection
   process \citep{Han_1995, ivanova:02, demarco:11, zorotovic:14}.
 
-To determine $E_\mathrm{bind}(r)$, we integrate from the surface inwards the internal structure of our stellar models
+To determine $E_\mathrm{bind}(r)$, we integrate the internal structure of our stellar models from the surface inward
   \citep[e.g.,][]{Han_1995, Dewi_2000, renzo:23}:
 \begin{equation}
   \label{eq:BE}
@@ -744,7 +733,8 @@ conclusions.
 primaries of our three systems as a function of radius inside the star
 and for different tidal prescriptions including and excluding the
   internal energy contribution. It
-also shows the hydrogen mass fraction profile
+also shows the % { parallel evolution}
+hydrogen mass fraction profile
 ($X(^{1}\mathrm{H})$) which decreases at the core-envelope boundary, see inset panel.
 
 If, as we expect, the future mass transfer in the
@@ -760,7 +750,7 @@ systems will most probably merge in the future.
 \label{sec:post-interaction}
 
 
-Binaries can also produce fast rotating stars during mass-transfer episodes. As
+Binaries can also produce fast-rotating stars during mass-transfer episodes. As
 the donor overfills its Roche lobe, the transferred mass carries
 angular momentum and, if successfully accreted by the companion star,
 deposits the angular momentum at its surface.
@@ -809,12 +799,11 @@ To test a lower limit on how fast the accretors may be spun up we
 Our models include tides, following the two prescriptions
   discussed in \Secref{sec:res_primordial} -- thus on a tidal
   timescale we expect the orbits to shrink slightly to spin up both
-  stars. 
+  stars.
 
 
 
 \subsection{Results and interpretation}
-
 
 
 As an illustrative example, we first focus on $M_\mathrm{don,ini}$ = 30 $M_{\odot}$ and
@@ -838,18 +827,17 @@ the orbital periods increase as a result of mass transfer
 observed range of periods.
 However, varying assumptions on the
   mass transfer efficiency and the angular momentum losses, this
-  general trend can change. 
- A natural way to prevent the orbital widening, is to assume mass transfer to be non
-conservative and remove significant amount of angular momentum, for
+  general trend can change.
+ A natural way to prevent the orbital widening, is to assume mass transfer to be nonconservative and remove significant amount of angular momentum, for
 example because of the non-accreted material forms a circumbinary disk
 (CBD) which applies torques to the inner binary \citep[see e.g.,][]{Vanbeveren_1982,Shao_2016}.
 
 To test this scenario, we explore different mass transfer efficiencies,
-using the parametrized analytic formalism of \citet{Soberman_1997}. 
+using the parametrized analytic formalism of \citet{Soberman_1997}.
 Namely, the mass transfer efficiency is defined as the ratio
 of the accretor's mass change to the donor's mass change at each timestep, i.e. $\eta$ = $\Delta M_\mathrm{acc}/\Delta M_\mathrm{don}$.
-If the mass transfer is non-conservative ($\eta$ $\neq$ 1), the fraction of mass
-that is lost to a (coplanar, unmodelled) CBD is defined as $\delta$ = 1 - $\eta$.
+If the mass transfer is nonconservative ($\eta$ $\neq$ 1), the fraction of mass
+that is lost to a (coplanar, unmodeled) CBD is defined as $\delta$ = 1 - $\eta$.
 Thus, in our simulations, we are continuously updating $\delta$, by assuming three different sizes of the CBD.
 Namely, we vary the radius of CBD defined as $r_\mathrm{CBD} = \gamma^2 a$, where $\gamma$ = 1, 2, 10 is another free parameter.
 We assume no mass is lost in the vicinity of the accretor and donor ($\alpha$ and $\beta$ equal to zero according to \citealt{Soberman_1997} formalism).
@@ -865,29 +853,28 @@ We assume no mass is lost in the vicinity of the accretor and donor ($\alpha$ an
   \includegraphics[width=0.30\textwidth]{p_q_10days.pdf}
   \includegraphics[width=0.30\textwidth]{p_q_50days.pdf}
   \includegraphics[width=0.30\textwidth]{p_q_70days.pdf}
-  \caption{Orbital period vs. Mass ratio relation for six cases
-    of initial orbital periods (1.25, 3, 5, 10, 50 and 70 days) and masses $M_\mathrm{don,ini}$ = 30 $M_{\odot}$ and $M_\mathrm{acc,ini}$  = 20
+  \caption{Orbital period vs. mass ratio relation for six cases
+    of initial orbital periods (1.25, 3, 5, 10, 50, and 70 days) and masses $M_\mathrm{don,ini}$ = 30 $M_{\odot}$ and $M_\mathrm{acc,ini}$  = 20
     $M_{\odot}$. Different tidal synchronization prescription regimes i.e. \texttt{sync$\_$type="Hut$\_$rad"} (MESA default)
     and \texttt{sync$\_$type="structure$\_$dependent"} (POSYDON) are presented. In addition, different fractions of mass lost from circumbinary toroid (via changing the mass transfer efficiency parameters \texttt{$\delta$} and \texttt{$\gamma$}, see text for details) are shown. The cases with \texttt{$\gamma$} = 0 refer to the conservative mass transfer scenario. The RLOF
     phases are marked by a bold line. Filled and open circles indicate the reasons of track termination: both stars filled their Roche lobes or numerical convergence problem, respectively. In the case of 1.25 day configuration, both stars filled their RL almost simultaneously and we consider that all tracks indicate a subsequent merging.}
   \label{fig:P_q_post}
-  %\script{}
 \end{figure*}
 
 
 \begin{figure}[!hbpt]
   \centering
+  \script{plot_save_mesa_eta.py}
   \includegraphics[width=0.49\textwidth]{eta_omega.pdf}
   \caption{Mass transfer efficiency ($\eta$) as a function of the surface average angular velocity for the various initial periods of a given system.}
   \label{fig:eta_omega}
-  \script{plot_save_mesa_eta.py}
 \end{figure}
 
 
 We illustrate how the modeled mass transfer efficiency varies as a function of average angular surface velocity in the \Figref{fig:eta_omega} by assuming $\gamma$ = 3 (see the resolution test in \Figref{fig:eta_omega_res}).
 As we can see for the short-period models ($P_\mathrm{ini}$ = 3, 5 days), $\eta$ is significantly larger than for the longer period configurations \citep[as it has been also shown by][]{Sen_2022}, which means that mass transfer is not efficient in a such regime of CBD for longer period systems.
 It can be explained: with larger orbital angular momentum (longer periods), more material from the donor remains in the CBD, thus the efficiency of accretion becomes low (as can be seen in \Figref{fig:eta_omega}).
-Notably, in such a regime of the non-conservative mass transfer, the accretor never reaches the 0.95$\omega_\mathrm{crit}$ threshold --  because for $P$ < 5 days all massive binaries with $Q \sim$ 0.65 reach tidal synchronization early in the MS.
+Notably, in such a regime of the nonconservative mass transfer, the accretor never reaches the 0.95$\omega_\mathrm{crit}$ threshold --  because for $P$ < 5 days all massive binaries with $Q \sim$ 0.65 reach tidal synchronization early in the MS.
 This analysis shows how sensitive is the mass transfer efficiency even in such a simple model of CBD existence.
 In addition, we tested binary models with the \citet{fuller:19} AM transport and found this to have a negligible impact on $\eta$ and on the accretor's total angular momentum.
 Preliminary analysis shows that with a more efficient AM transport, it takes longer to spin up the accretor with respect to the less efficient AM transport (e.g. considering the Spruit - Tayler dynamo).
@@ -904,16 +891,15 @@ Moreover, in the majority of cases, the systems merge with the most extreme case
 \Figref{fig:P_q_post}). Thus, during and after the donor's RLOF stage, we can not reproduce the observed periods and mass ratios whatever the value of $P_\mathrm{ini}$.
 Further simulations show, that in the majority of cases, the systems with periods less than 10 days will also merge. We identified the time of merging events as the time at which both the secondaries and the primaries fill their Roche Lobe and we indicated this by filled circles at the end of each track in \Figref{fig:P_q_post}.
 
-In case of larger initial periods ($P_\mathrm{ini}$ $>$ 10 days, three bottom panels in \Figref{fig:P_q_post}), non-conservative mass transfer can form short-period systems, however, extreme mass ratios would be again difficult to reach.
-
-To confirm these results, we compute an additional set of models with different initial masses of the components. 
-The results of these simulations confirm the main increasing trend of the mass ratio up to the possible merging of the systems (in a non-conservative mass transfer regime, in terms of $\eta$ > 0) or up to the moment of system detachment (at conservative mass transfer regime, when  $\eta$ = 0).
+In the case of larger initial periods ($P_\mathrm{ini}$ $>$ 10 days, three bottom panels in \Figref{fig:P_q_post}), nonconservative mass transfer can form short-period systems, however, extreme mass ratios would be again difficult to reach.
+To confirm these results, we compute an additional set of models with different initial masses of the components.
+The results of these simulations confirm the main increasing trend of the mass ratio up to the possible merging of the systems (in a nonconservative mass transfer regime, in terms of $\eta$ > 0) or up to the moment of system detachment (at conservative mass transfer regime, when  $\eta$ = 0).
 However, the value reached remain far from the observed ones.
 We can therefore conclude that the presented scenario to form short-period, extreme mass ratio, fast-rotating binaries from binary interaction is not favored.
 
 
 Short-period binaries could form through a
-post CE scenario \citep[see channel 4 in][]{Willems_2004}. 
+post CE scenario \citep[see channel 4 in][]{Willems_2004}.
 However, if we assume a post-CE origin of our systems, the rotational velocity of the current primary component will be conditioned only by tidal synchronization. As demonstrated in \Secref{sec:pre-interaction}, it is not possible to reach the observed \vsini~ (exceeding tidal synchronization values), especially in the case of HD\,46485.
 A post-common envelope ejection origin of our targets thus appears to be unlikely.
 
@@ -940,12 +926,10 @@ orbital angular momentum of the inner binary retained by the merger
 product \citep[e.g.,][]{deMink_2014}. The observed present-day binary
 orbit corresponds to the initial outer binary orbit, possibly modified
 by the mass and angular momentum losses during the merger itself.
-
 Here, we discuss the reasons why we consider this scenario unlikely
 for HD\,25631, HD\,191495, and HD\,46485, although it is hard to
-completely rule it out given the vast 10-dimensional parameter space
+completely rule it out given the vast ten-dimensional parameter space
 for initial triple configurations \citep[e.g.,][]{toonen:16}.
-
 \paragraph{The mergers and fast rotation.}
 Some multidimensional magneto-hydrodynamics simulations of mergers between
 main-sequence stars of masses comparable to ours ($\sim 9+8\,M_\odot$)
@@ -983,7 +967,7 @@ rotating merger products sufficient to discard a
 merger-in-a-triple scenario on its own.
 
 \paragraph{Dynamical instability of putative triple progenitor.}
-The present day observed periods, corresponding to orbital separations of
+The present-day observed periods, corresponding to orbital separations of
 $\sim24.6\,R_\odot$, $24.7\,R_\odot$, and $45\,R_\odot$, for HD\,25631, HD\,191495, and HD\,46485,
 respectively, put strong constraints on the initial conditions for a
 triple.
@@ -1073,9 +1057,8 @@ eccentricities and the relative inefficiency of tides discussed in
 \Secref{sec:pre-interaction}, we consider here pre-merger outer
 eccentricity equal to today's observed value
 $e_\mathrm{out}=e_\mathrm{obs}\simeq0$, which is consistent with
-$f_\Delta=0$ but in possible tension with non-zero mass loss mergers
+$f_\Delta=0$ but in possible tension with nonzero mass loss mergers
 $f_\Delta\neq0$ (see \Secref{sec:caveats_triple}).
-
 
 
 \begin{figure}[hbtp]
@@ -1112,7 +1095,7 @@ destabilized by stellar evolution processes (e.g., radial expansion,
 mass loss, tides, \citealt{perets:12}). If that is not the case, the
 triple will either evolve chaotically (leading to a merger or
 disruption within a few Lyapunov times) or is unstable (leading to
-merger/disruption within a few dynamical times set by the inner/outer
+merger or disruption within a few dynamical times set by the inner/outer
 orbital period). Either of these scenarios would result in the prompt
 formation of a binary (compared to stellar evolution timescales) and
 reduce to the pre-interaction scenario discussed in
@@ -1139,7 +1122,7 @@ likely \citep{perets:12}, so we can limit our discussion to initially
  $\min(a_\mathrm{in})\leq a_\mathrm{in}\leq a_\mathrm{out}\leq a_\mathrm{obs}$
  for the inner and outer separations where $a_\mathrm{obs}$ is the
  present-day observed binary separation,
- $0\leq i_\mathrm{rel}\leq \pi$ for the the mutual inclination of the
+ $0\leq i_\mathrm{rel}\leq \pi$ for the mutual inclination of the
  inner and outer orbit, and $0\leq e_\mathrm{out}\leq e_\mathrm{obs}$
  for the outer eccentricity. Certain choice of $f_\Delta$,
  $q_\mathrm{in}$, and $e_\mathrm{in}$ result in the unphysical
@@ -1211,9 +1194,9 @@ Refining our understanding of the future evolution of survival initial triples, 
 Nevertheless, we note that most past triples are expected to be eccentric, which is not the case in our systems.
 
  \begin{figure}[htbp]
-   \script{plot_P_unstable.py}
+     \script{plot_P_unstable.py}
    \includegraphics[width=0.5\textwidth]{P_unstable.pdf}
-   \caption{The vast majority of triple systems compatible with the
+   \caption{Vast majority of triple systems compatible with the
      ``merger in a triple'' scenario has a probability of being
      dynamically unstable $\gtrsim90\%$. For each observed binary, we
      show the fraction of compatible putative triple progenitors that
@@ -1224,7 +1207,6 @@ Nevertheless, we note that most past triples are expected to be eccentric, which
      is marginalized over all parameters defining the architecture of
      the triples compatible with the present-day binaries (see text).}
    \label{fig:ML_stability}
-
  \end{figure}
 
 
@@ -1407,7 +1389,9 @@ the fastest rotator in the sample (HD\,46485), we can emphasize that
 even in the regime of highest rotation, the pre-interacting systems can be found. Thus, fast rotation alone is not sufficient
   to confidently advocate for a mass-transfer origin of fast rotators and other observables, such as
 chemical composition, apparent age, and kinematics \citep{blaauw:61, blaauw:93, Renzo_2019runaways, Renzo_2021}, should be
-considered to clean samples of binary accretors and reveal the initial rotation distribution of massive stars.  
+considered to clean samples of binary accretors and reveal the initial rotation distribution of massive stars.
+
+
 \subsection{Theoretical implications}
 
 Our interpretation of HD\,25631, HD\,191495, and HD\,46485 as
@@ -1463,53 +1447,47 @@ Also, our models suggest that formation processes can lead to primordial
   strengthening our conclusions \citep{Mirouh_2023}.
   Another factor to investigate how dynamical and equilibrium tides are affecting the synchronization and circularization timescales at different metallicity while the system is evolving  \citep[see,][]{Siess_2013}.
 
-
 \section{Conclusions}
 \label{sec:conclusions}
-In the present work, we evaluated different evolutionary scenarios
+In the present work, we evaluate different evolutionary scenarios
 that could explain the observed properties of three short-period
 binaries investigated by \citet{Naze_2023_rot}. Specifically, we
   consider three options for the origin of the
-  faster-than-tidally-synchronized rotation rate spectroscopically
+  faster than tidally synchronized rotation rate, spectroscopically
   observed in the SB1 systems HD\,25631, HD\,191495, and HD\,46485: (\emph{i})
-  star formation processes (primordial, pre-interaction scenario), (\emph{ii})
-  the result of spin up due to mass transfer (post-interaction
+  star formation processes (the primordial and pre-interaction scenario), (\emph{ii})
+  the result of spin-up due to mass transfer (post-interaction
   scenario), or (\emph{iii}) the result of a merger in an originally triple
-  system.
-
-The orbital architecture of the binaries (short observed period $P<10$\,days,
-  small-to-null eccentricity $e\simeq0$, very low mass ratio $q<0.20$) put
+  system. The orbital architecture of the binaries (short observed period $P<10$\,days,
+  small-to-null eccentricity $e\simeq0$, and very low mass ratio $q<0.20$) put
   strong constraints on the possible origin of the observed fast rotation.
-
 
 Our analysis shows that:
 
 \begin{itemize}
-  \item Primordial fast rotation can persist during most of the main-sequence stage, as the effect of tidal interaction only starts to be significant close to the terminal age when the radius of the primary component is increasing.
-  \item Initial rotation affects the orbital configuration through the tidal interaction, widening of the orbit in case of a large initial rotation thereby affecting when the mass transfer starts (before or after the main-sequence stage i.e., case A or case B mass transfer).
-  \item The evaluation of the post-interacting scenario leads us to the conclusion that during conservative mass transfer, the orbit widens significantly so this type of interaction can not reproduce the present observational properties of the investigated systems (especially in terms of $P$ and $q$).
-  \item Various regimes of non-conservative mass transfer can lead to
-    short-period systems, however, it is unlikely to get an extreme mass ratio configuration before the systems merged as orbit is shrinking fast.
+  \item Primordial fast rotation can persist during most of the MS stage, as the effect of the tidal interaction only starts to be significant close to the terminal age when the radius of the primary component is increasing.
+  \item Initial rotation affects the orbital configuration through the tidal interaction, widening the orbit in case of a large initial rotation thereby affecting when the mass transfer starts (before or after the MS stage, i.e., case A or case B mass transfer).
+  \item The evaluation of the post-interacting scenario leads us to the conclusion that during conservative mass transfer, the orbit widens significantly so this type of interaction cannot reproduce the present observational properties of the investigated systems (especially in terms of $P$ and $q$).
+  \item Various regimes of nonconservative mass transfer can lead to
+    short-period systems; however, it is unlikely to get an extreme mass ratio configuration before the systems merged as the orbit is shrinking fast.
   \item An initially stable triple system may possibly result in a
     fast-rotating primary star after the merging of the inner binary.
-    However, current theoretical understanding suggests
-      main-sequence mergers may be slow rotators and, most
+    However, our current theoretical understanding suggests
+      that MS mergers may be slow rotators and, most
       importantly, $\sim95\%$ of the simulated triple systems have a probability of being
       dynamically unstable $\gtrsim 90\%$. This suggests that within
       $\lesssim$ 100 outer periods ($\lesssim 2\,\mathrm{years}$ for
       our systems), the triple system would dynamically disrupt: this leaves
-      an extremely narrow window for the merger to happen, and would
+      an extremely narrow window for the merger to happen, and this would
       effectively reduce scenario (\emph{iii}) to scenario (\emph{i}) with the merger
       being part of the star formation process. % this requires a significant outer orbital separation of the initially third component. The separation should be much larger than the currently observed orbital separation in any of the investigated systems. %In addition, we would not expect a merger product to necessarily be a fast-rotating star.
 \end{itemize}
 
 Thus, we suggest that it is likely that the primaries in our three
-systems have a fast-rotating primary from birth, that is scenario (\emph{i})
-is preferred.
-
-These results support the protostellar disk fragmentation mechanism of forming short-period binaries suggested by \citet{Tokovinin_2020}.
-Detection of such young pre-interacting binaries can shed light on the overall initial spin distribution of massive stars.
-Besides, if fast rotation can be primordial, it naturally implies that massive
+systems have a fast-rotating primary from birth, that is, scenario (\emph{i})
+is preferred. These results support the protostellar disk fragmentation mechanism of forming short-period binaries suggested by \citet{Tokovinin_2020}.
+The detection of such young pre-interacting binaries can shed light on the overall initial spin distribution of massive stars.
+In addition, if fast rotation can be primordial, it naturally implies that massive
 stars could have a wide range of initial rotations, and that rotation
 alone is not a sufficient indicator to uniquely identify past binary interactions.
 
@@ -1581,27 +1559,28 @@ The results of these tests are presented in Figures \ref{fig:resolution_test_one
 
 \begin{figure}[!ht]
   \centering
+  \script{plot_save_mesa_comparison_wind_fin.py}
+
   \includegraphics[width=0.45\textwidth]{age_vsurf_comparison_onestar_resolution_vrot.pdf}
   \includegraphics[width=0.45\textwidth]{age_vsurf_comparison_onestar_resolution.pdf}
-  \caption{{\bf Top panel:} evolution of average equatorial rotation
+  \caption{Evolution of average equatorial rotation
     velocity for a single 24 $M_{\odot}$ star with $v_\mathrm{rot}^\mathrm{ini}$ =
     200 \kms~ adopting different \texttt{mesh\_delta\_coeff} and
-    \texttt{time\_delta\_coeff} parameters. The tracks continues only
+    \texttt{time\_delta\_coeff} parameters ({\bf top panel}). The tracks continues only
     up to the terminal-age evolutionary phase.  {\bf Bottom panel:}
-    the HR diagram for the same model that continues till the end of
+     HR diagram for the same model that continues until the end of
     the He-core burning phase.}
   \label{fig:resolution_test_one_star}
-  \script{plot_save_mesa_comparison_wind_fin.py}
 \end{figure}
 
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.45\textwidth]{age_vsurf_comparison_resolution_test.pdf}
-  \includegraphics[width=0.45\textwidth]{HR_primary.pdf}
-  \caption{Same as \Figref{fig:resolution_test_one_star}, but for the HD\,46485 system by taking into account POSYDON structure dependent tidal synchronization prescription.}
-  \label{fig:resolution_test_tides}
   \script{plot_save_mesa_comparison_panels_fin.py}
+  \includegraphics[width=0.45\textwidth]{age_vsurf_comparison_resolution_test.pdf}
+\includegraphics[width=0.45\textwidth]{HR_primary.pdf}
+  \caption{Same as \Figref{fig:resolution_test_one_star}, but for the HD\,46485 system by taking into account the POSYDON structure dependent tidal synchronization prescription.}
+  \label{fig:resolution_test_tides}
 \end{figure}
 
 
@@ -1610,7 +1589,7 @@ The results of these tests are presented in Figures \ref{fig:resolution_test_one
   \centering
   \script{plot_save_mesa_individual_pos_res.py}
   \includegraphics[width=0.45\textwidth]{hr_panel_res.pdf}
-  \caption{Period as a function of mass ratio for a system initially defined as $M_\mathrm{don,ini}$ = 30 $M_{\odot}$, $M_\mathrm{acc,ini}$ = 20 $M_{\odot}$, and $P_\mathrm{ini}$ = 10 d. The distribution includes the MESA default and POSYDON tidal synchronization prescriptions.}
+  \caption{Period as a function of the mass ratio for a system initially defined as $M_\mathrm{don,ini}$ = 30 $M_{\odot}$, $M_\mathrm{acc,ini}$ = 20 $M_{\odot}$, and $P_\mathrm{ini}$ = 10 d. The distribution includes the MESA default and POSYDON tidal synchronization prescriptions.}
   \label{fig:resolution_test_pvsq}
 \end{figure}
 
@@ -1684,12 +1663,13 @@ We assumed an initial eccentricity equal to 0.5.
     three stars assuming initial eccentricity equal to 0.5. "MESA default" refers to the
     \texttt{sync\_type = "Hut\_rad"} tidal synchronization prescription.}
   \label{fig:v_ecc}
-
 \end{figure}
+
 
 
 \bibliographystyle{aa}
 \bibliography{ref}
 
 \end{document}
+
 
