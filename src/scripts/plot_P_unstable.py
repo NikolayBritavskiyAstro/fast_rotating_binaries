@@ -4,19 +4,18 @@ import os
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import paths
+
 plt.style.use(paths.scripts / "matplotlibrc")
-if os.path.exists(os.path.join(paths.data,'triples/')):
-	pass
+if os.path.exists(os.path.join(paths.data, 'triples/')):
+    pass
 else:
-	os.system(f'python {os.path.join(paths.scripts / "unzip_MESA_output.py")}')
+    os.system(f'python {os.path.join(paths.scripts / "unzip_MESA_output.py")}')
 
 
-
-
-def read_data(file_path, N_skip=None, convert = True):
+def read_data(file_path, N_skip=None, convert=True):
     with open(file_path, 'r') as f:
         for i, line in enumerate(f):
-            if i==0:
+            if i == 0:
                 col = line.split()
                 break
     binary_file = str(file_path[:-4]) + ".npy"
@@ -50,6 +49,7 @@ def get_binary_name_from_file(file_path):
     name = file_path.split('/')[-1].split("_")[0]
     return name
 
+
 def plot_P_unstable(file_path, ax, N_skip=None):
     print(file_path)
     bin_name = get_binary_name_from_file(file_path)
@@ -62,36 +62,37 @@ def plot_P_unstable(file_path, ax, N_skip=None):
     for i, src_f_dm in enumerate(list_src):
         P_unstable = src_f_dm[:, col.index("P_unstable")]
         # ax.hist(P_unstable, range=(0,1), color=colors[i], histtype='step', bins=100, density=True)
-        ax.hist(P_unstable, range=(0,1), ls=linestyles[i], # color=color,
+        ax.hist(P_unstable, range=(0, 1), ls=linestyles[i],  # color=color,
                 histtype='step', bins=100, cumulative=-1, density=True,
-                label=r"$f_\Delta="+f"{f_dm_values[i]:.1f}"+r"$", lw=3)
+                label=r"$f_\Delta=" + f"{f_dm_values[i]:.1f}" + r"$", lw=3)
     # ax.set_yscale('log')
 
+
 def make_Punstable_plot(N_skip=None, fig_name=None):
-    fig = plt.figure(figsize=(10,10))
+    fig = plt.figure(figsize=(10, 10))
     gs = gridspec.GridSpec(130, 100)
     ax1 = fig.add_subplot(gs[:30, :])
     ax2 = fig.add_subplot(gs[50:80, :])
     ax3 = fig.add_subplot(gs[100:, :])
-    axes = [ax1,ax2,ax3]
-    files = glob.glob(str(paths.data)+'/triples/*_triples.txt')
+    axes = [ax1, ax2, ax3]
+    files = glob.glob(str(paths.data) + '/triples/*_triples.txt')
     print(files)
     for i, file_path in enumerate(files):
         ax = axes[i]
         plot_P_unstable(file_path, ax, N_skip=N_skip)
     for ax in axes:
-        ax.set_xlim(0,1)
-    ax3.set_xlabel(r"$P$(triple unstable at ZAMS)",fontsize=25)
-    ax2.set_ylabel(r"Fraction "+r"$P\geq x$",fontsize=25)
+        ax.set_xlim(0, 1)
+    ax3.set_xlabel(r"$P$(triple unstable at ZAMS)", fontsize=25)
+    ax2.set_ylabel(r"Fraction " + r"$P\geq x$", fontsize=25)
     ax3.legend(loc="lower left", ncol=2, columnspacing=0.5)
     if fig_name:
         plt.savefig(fig_name)
         # save static too
-        #plt.savefig(paths.static/"P_unstable.pdf")
-        #print(fig_name)
+        # plt.savefig(paths.static/"P_unstable.pdf")
+        # print(fig_name)
     else:
         plt.show()
 
 
 if __name__ == "__main__":
-    make_Punstable_plot(N_skip=None, fig_name=paths.figures/"P_unstable.pdf")
+    make_Punstable_plot(N_skip=None, fig_name=paths.figures / "P_unstable.pdf")

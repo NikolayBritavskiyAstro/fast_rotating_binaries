@@ -6,6 +6,7 @@ import paths
 from Eggleton83 import Roche_lobes, Roche_ratios
 from classify_trip import mlp_classifier
 
+
 def get_Rzams_from_mass_radius_rel(M):
     """Rough mass-radius R = Rsun (M/Msun)^exp relation for main sequence massive stars
     Note that this assumes polytropic homogeneous stars.
@@ -26,16 +27,17 @@ def get_Rzams_from_mass_radius_rel(M):
         mval = M
     try:
         # mval is a scalar
-        if mval<= 1.4:
+        if mval <= 1.4:
             exp = 0.9
         else:
             exp = 0.6
     except ValueError:
         # mval is an array
         i_low_mass = mval <= 1.4
-        exp = np.asarray([0.6]*len(mval), dtype=float)
+        exp = np.asarray([0.6] * len(mval), dtype=float)
         exp[i_low_mass] = 0.9
     return (mval ** exp) * u.Rsun
+
 
 def get_ZAMS_periastron_RLOF_min_a(q, mtot, e=0):
     """Provide the minimum orbital separation so that neither stars
@@ -54,15 +56,15 @@ def get_ZAMS_periastron_RLOF_min_a(q, mtot, e=0):
     min_a: `float` or `np.array` minimum orbital separation such as a> RL1+RL2 at periastron, in solar radii
     """
     # solve for masses
-    m1zams = mtot/(1+q)
-    m2zams = m1zams*q
+    m1zams = mtot / (1 + q)
+    m2zams = m1zams * q
     # assign units
     try:
-        m1zams = m1zams.value*u.Msun
-        m2zams = m2zams.value*u.Msun
+        m1zams = m1zams.value * u.Msun
+        m2zams = m2zams.value * u.Msun
     except AttributeError:
-        m1zams = m1zams*u.Msun
-        m2zams = m2zams*u.Msun
+        m1zams = m1zams * u.Msun
+        m2zams = m2zams * u.Msun
     # get ZAMS radii from analytic mass-radius relation
     rzams1 = get_Rzams_from_mass_radius_rel(m1zams)
     rzams2 = get_Rzams_from_mass_radius_rel(m2zams)
@@ -74,25 +76,26 @@ def get_ZAMS_periastron_RLOF_min_a(q, mtot, e=0):
     # condition we want:
     # periastron passage does not cause RLOF
     # a_in such that rzams1 < f1*a_in*(1-e_in) and rzams2 < f2*a(1-e_in)
-    min_a_in = np.minimum(rzams1/(f1*(1.-e)), rzams2/(f2*(1.-e)))
-    return min_a_in # same units as radii, should be Rsun
+    min_a_in = np.minimum(rzams1 / (f1 * (1. - e)), rzams2 / (f2 * (1. - e)))
+    return min_a_in  # same units as radii, should be Rsun
+
 
 def binary(M1, M2, P, e=0, name=None):
     """ Assign units and return values"""
     try:
-        binary_system =  {"M1": M1.value*u.Msun,
-                          "M2": M2.value*u.Msun,
-                          "P" : P.value*u.day,
-                          "a" : get_sep_from_P_masses(M1.value*u.Msun, M2.value*u.Msun, P.value*u.day).to(u.Rsun),
-                          "e" : e,
-                          "name": name}
+        binary_system = {"M1": M1.value * u.Msun,
+                         "M2": M2.value * u.Msun,
+                         "P": P.value * u.day,
+                         "a": get_sep_from_P_masses(M1.value * u.Msun, M2.value * u.Msun, P.value * u.day).to(u.Rsun),
+                         "e": e,
+                         "name": name}
     except AttributeError:
-        binary_system =  {"M1": M1*u.Msun,
-                          "M2": M2*u.Msun,
-                          "P" : P*u.day,
-                          "a" : get_sep_from_P_masses(M1*u.Msun, M2*u.Msun, P*u.day).to(u.Rsun),
-                          "e" : e,
-                          "name": name}
+        binary_system = {"M1": M1 * u.Msun,
+                         "M2": M2 * u.Msun,
+                         "P": P * u.day,
+                         "a": get_sep_from_P_masses(M1 * u.Msun, M2 * u.Msun, P * u.day).to(u.Rsun),
+                         "e": e,
+                         "name": name}
     return binary_system
 
 
@@ -105,9 +108,9 @@ def draw_triples(observed_binary, f_dm=0.0, N_triples=10):
     f_dm: `float`, fraction of mass lost at the merger moment, defaults to zero
 
     """
-    m_post_merger = observed_binary["M1"].value # post-merger mass  == present day primary mass (neglect wind)
-    m1zams_plus_m2zams =  m_post_merger/(1-f_dm) # again neglect pre-merger wind
-    q_out = [observed_binary["M2"].value/m1zams_plus_m2zams]*np.ones(N_triples)
+    m_post_merger = observed_binary["M1"].value  # post-merger mass  == present day primary mass (neglect wind)
+    m1zams_plus_m2zams = m_post_merger / (1 - f_dm)  # again neglect pre-merger wind
+    q_out = [observed_binary["M2"].value / m1zams_plus_m2zams] * np.ones(N_triples)
     max_a_out = observed_binary["a"].value
     # draw inner binary eccentricity
     e_in = np.random.random(N_triples)
@@ -121,9 +124,9 @@ def draw_triples(observed_binary, f_dm=0.0, N_triples=10):
     min_a_in[i_too_large_min_a_in] = max_a_out
     a_in = np.random.uniform(min_a_in, max_a_out, N_triples)
     a_out = np.random.uniform(a_in, max_a_out, N_triples)
-    inclination = np.random.uniform(0,pi, N_triples)
-    e_out = observed_binary["e"]*np.ones(N_triples)
-    triple_list = np.asarray((q_in, q_out, a_in/a_out, e_in, e_out, inclination)).T
+    inclination = np.random.uniform(0, pi, N_triples)
+    e_out = observed_binary["e"] * np.ones(N_triples)
+    triple_list = np.asarray((q_in, q_out, a_in / a_out, e_in, e_out, inclination)).T
     return triple_list, i_too_large_min_a_in
 
 
@@ -142,11 +145,13 @@ def ML_stability_test(triple, ML_model="./mlp_model_trip_ghost.pkl"):
     # print(stability)
     return stability
 
+
 def wrapper(system):
     print(system["name"])
-    file_name = str(paths.static)+"/"+system["name"]+"_"+"triples"+".txt"
+    file_name = str(paths.static) + "/" + system["name"] + "_" + "triples" + ".txt"
     with open(file_name, "w") as output_file:
-        output_file.writelines("q_in\t\t\tq_out\t\t\ta_ratio\t\t\te_in\t\t\te_out\t\t\tinclination\t\t\tf_dm\t\t\tP_unstable"+"\n")
+        output_file.writelines(
+            "q_in\t\t\tq_out\t\t\ta_ratio\t\t\te_in\t\t\te_out\t\t\tinclination\t\t\tf_dm\t\t\tP_unstable" + "\n")
         for f_dm in [0, 0.1]:
             triple_list, i_too_large_min_a_in = draw_triples(system, f_dm=f_dm, N_triples=N_samples)
             # Parallel(delayed(wrapper)(triple) for triple in triple_list)
@@ -158,7 +163,8 @@ def wrapper(system):
                     # min(a_in) was < max_a_out
                     stable = ML_stability_test(triple)
                     # print(triple, stable)
-                output_file.writelines("\t\t\t".join(str(x) for x in triple)+"\t\t\t"+str(f_dm)+"\t\t\t"+str(float(stable))+"\n")
+                output_file.writelines(
+                    "\t\t\t".join(str(x) for x in triple) + "\t\t\t" + str(f_dm) + "\t\t\t" + str(float(stable)) + "\n")
             print("done with f_dm =", f_dm)
         print("------------------")
         print("done with", system["name"], "output at", file_name)
@@ -174,7 +180,7 @@ if __name__ == "__main__":
     has of Sep 9th, 2023) to assign a probability of being dynamically
     unstable.
     """
-    N_samples = int(1e6) # number of triples to draw
+    N_samples = int(1e6)  # number of triples to draw
     HD46485 = binary(24., 1., 7.0, 0.033, "HD46485")
     HD191595 = binary(15., 1.2, 3.6, 0.0, "HD191595")
     HD25631 = binary(7., 1, 5.2, 0.0, "HD25631")

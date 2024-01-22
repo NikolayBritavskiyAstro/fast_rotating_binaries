@@ -20,7 +20,6 @@ def Roche_ratios(m1, m2):
     return rl_donor, rl_accretor
 
 
-
 def Roche_lobes(m1, m2, a, ecc=0):
     """
     Parameters:
@@ -36,9 +35,9 @@ def Roche_lobes(m1, m2, a, ecc=0):
     the value is in the same units as the input separation
     """
     q_donor = m1 / m2
-    rl_donor = func(q_donor) * a * (1-ecc)
+    rl_donor = func(q_donor) * a * (1 - ecc)
     q_accretor = m2 / m1
-    rl_accretor = func(q_accretor) * a * (1-ecc)
+    rl_accretor = func(q_accretor) * a * (1 - ecc)
     return rl_donor, rl_accretor
 
 

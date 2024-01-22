@@ -17,9 +17,16 @@
 
 
 This repository contains all files for reproducing Britavskiy et al. (2024) work regarding tracing the evolution of short-period fast-rotating massive binaries.
-The input and output MESA data are available at https://zenodo.org/records/10479754. For the local article compilation, it is necessary to unzip the `data` folder from the Zenodo archive and put its content in the `../src/data` folder.
+The input and output MESA data are available at https://zenodo.org/records/10479754. 
+
+
+
+##### How to build the article locally?
+
+1. Install conda (`version 23.11.0` ) and [showyourwork](https://show-your.work/en/latest/install/) workflow. 
+2. Clone this repository and run `showyourwork build`.
+3. The first time this will download the `data` folder (~4 GB) from [Zenodo](https://zenodo.org/records/10479754) and will unzip all the required data to `../src/data` folder. It is also possible to download manually the `data` folder and put its content (~20 GB) in the `../src/data` folder.
 
 All file dependencies for reproducing the plots are available in `showyourwork.yml` file.
-Use `conda 23.11.0` to build.
 
 An open source scientific article created using the [showyourwork](https://github.com/showyourwork/showyourwork) workflow.
