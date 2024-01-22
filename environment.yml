@@ -1,8 +1,9 @@
-channel_priority: strict
+#channel_priority: strict
 channels:
   - defaults
-  - bioconda
   - conda-forge
+  - bioconda
+  - pypi
 dependencies:
   - python==3.10.6
   - numpy>=1.23.5
@@ -10,8 +11,8 @@ dependencies:
   - astropy==5.1
   - pandas >=1.1.3
   - scipy >= 1.4.1
- # - snakemake<=8.0
+  - snakemake==7.15.2
   - pip:
 
       - matplotlib==3.4.3
-      - showyourwork==0.4.2
+      - showyourwork==0.4.3
