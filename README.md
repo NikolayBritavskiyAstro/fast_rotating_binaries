@@ -24,7 +24,7 @@ The input and output MESA data are available at https://zenodo.org/records/10479
 ##### How to build the article locally?
 
 1. Install conda (`version 23.11.0` ) and [showyourwork](https://show-your.work/en/latest/install/) workflow. 
-2. Clone this repository and run `showyourwork build`.
+2. Clone this repository (`git clone https://github.com/NikolayBritavskiyAstro/fast_rotating_binaries.git`) and run `showyourwork build`.
 3. The first time this will download the `data` folder (~4 GB) from [Zenodo](https://zenodo.org/records/10479754) and will unzip all the required data to `../src/data` folder. It is also possible to download manually the `data` folder and put its content (~20 GB) in the `../src/data` folder.
 
 All file dependencies for reproducing the plots are available in `showyourwork.yml` file.
