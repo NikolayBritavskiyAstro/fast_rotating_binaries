@@ -1,13 +1,13 @@
 channel_priority: strict
 channels:
-  - conda-forge::pulp==2.7.0
+  - conda-forge
   - defaults
   - bioconda
   - pypi
 dependencies:
-  - snakemake==7.15.2
+  - snakemake==8.1.2
   - pulp==2.7.0
-  - python==3.10.6
+  - python==3.11.0
   - numpy>=1.23.5
   - pip>=20.3.3
   - astropy==5.1
